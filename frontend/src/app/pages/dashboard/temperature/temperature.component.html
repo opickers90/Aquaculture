@@ -1,0 +1,26 @@
+<nb-card size="large">
+  <nb-tabset fullWidth>
+    <nb-tab tabTitle="Suhu Air" [nbSpinner]="!temperatureData">
+      <ng-container *ngIf="temperatureData">
+      <div class="slider-container">
+        <ngx-temperature-dragger [(value)]="temperatureData.value"
+                                 [off]="!temperatureDevice.isOn"
+                                 (valueChangeCompleted)="setTemperatureData()"
+                                 (powerChange)="powerTemperatureDevice($event)"
+                                 [min]="temperatureData.min" [max]="temperatureData.max" [disableArcColor]="theme.arcEmpty"
+                                 [fillColors]="theme.arcFill" [thumbBg]="theme.thumbBg" [thumbBorderColor]="theme.thumbBorder">
+
+          <div class="slider-value-container"  [ngClass]="{ 'off': !temperatureDevice.isOn }">
+            <div class="value temperature h1">
+              {{ !temperatureDevice.isOn ? '--' : (temperatureData.value | ngxRound) }}
+            </div>
+            <div class="desc">
+              Celsius
+            </div>
+          </div>
+        </ngx-temperature-dragger>
+      </div>
+      </ng-container>
+    </nb-tab>
+  </nb-tabset>
+</nb-card>
